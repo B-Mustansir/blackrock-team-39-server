@@ -4,7 +4,8 @@ const ensureAuthenticated=require('../Middlewares/Auth')
 
 const Assets=require('../Models/Assets')
 const Tokens=require('../Models/Tokens')
-const User=require('../Models/User')
+const User=require('../Models/User');
+const { number } = require('joi');
 
 
 
@@ -65,7 +66,7 @@ router.get('/tokens', async (req, res) => {
         const tokens = await Tokens.find();
 
         const tokensWithAssets = await Promise.all(tokens.map(async (token) => {
-            const asset = await Assets.findById(token.assetId).select('imageOfCrop');
+            const asset = await Assets.findById(token.assetId).exec();
             return {
                 tokenId: token._id,
                 faceValue: token.faceValue,
@@ -75,6 +76,14 @@ router.get('/tokens', async (req, res) => {
                 tokenCount: token.tokenCount,
                 asset: {
                     assetId: asset._id,
+                    createdBy: asset.createdBy,
+                    plantType: asset.plantType,
+                    variety: asset.variety,
+                    plantingDate: asset.plantingDate,
+                    expectedHarvestDate: asset.expectedHarvestDate,
+                    cultivationMethod: asset.cultivationMethod,
+                    seedValue: asset.seedValue,
+                    numberOfSeeds: asset.numberOfSeeds,
                     imageOfCrop: asset.imageOfCrop
                 }
             };

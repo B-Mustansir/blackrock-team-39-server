@@ -56,7 +56,7 @@ const login = async (req, res) => {
                 jwtToken,
                 email,
                 name: user.name, 
-                tokenHodlings: user.tokenHoldings,
+                tokenHoldings: user.tokenHoldings,
                 balance: user.balance
             })
     } catch (err) {
