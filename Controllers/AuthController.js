@@ -55,7 +55,9 @@ const login = async (req, res) => {
                 success: true,
                 jwtToken,
                 email,
-                name: user.name
+                name: user.name, 
+                tokenHodlings: user.tokenHoldings,
+                balance: user.balance
             })
     } catch (err) {
         console.log(err)
