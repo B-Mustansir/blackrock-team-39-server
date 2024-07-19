@@ -1,7 +1,7 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const app = express();
 const AuthRouter = require('./Routes/AuthRouter');
 const ProductRouter = require('./Routes/ProductRouter');
 require('./jobs');
@@ -9,6 +9,12 @@ require('dotenv').config();
 require('./Models/db');
 
 app.use(express.urlencoded({extended:true}));
+
+app.use(cors({
+    origin: 'https://mustansir-blackrock-hackknight.vercel.app',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 const PORT = process.env.PORT || 8080;
 
