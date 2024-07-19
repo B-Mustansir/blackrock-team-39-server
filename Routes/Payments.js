@@ -4,7 +4,7 @@ const router = express.Router();
 const Razorpay = require('razorpay');
 const env = require('dotenv');
 env.config({ path: './.env' });
-const payments = require('../models/payments');
+const payments = require('../Models/Payments');
 const User = require('../Models/User')
 const ensureAuthenticated = require('../Middlewares/Auth')
 
