@@ -11,7 +11,7 @@ require('./Models/db');
 app.use(express.urlencoded({extended:true}));
 
 app.use(cors({
-    origin: 'https://mustansir-blackrock-hackknight.vercel.app',
+    origin: ['https://mustansir-blackrock-hackknight.vercel.app', 'http://localhost:3000'],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));

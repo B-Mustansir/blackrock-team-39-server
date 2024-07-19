@@ -7,8 +7,6 @@ const Tokens=require('../Models/Tokens')
 const User=require('../Models/User');
 const { number } = require('joi');
 
-
-
 // const generateTokens = (n, assetId, faceValue, currentValue, status, maturityDate) => {
 //     const tokens = [];
 
@@ -144,6 +142,26 @@ router.post('/selltokens',ensureAuthenticated, async(req,res)=>{
 
     await user.save();
     return res.status(201).send({message:"Token purchased succesfully"});
+
+});
+
+router.get('/balance', async (req, res) => {
+    const email = req.query.email;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ balance: user.balance });
+    } catch (error) {
+        console.error('Error fetching balance:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 
 });
 
